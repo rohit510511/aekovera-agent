@@ -1,5 +1,10 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+
+// The auth middleware client is typed against generated types; cast to an
+// untyped client so we can use our schema freely.
+const untyped = (c: unknown) => c as SupabaseClient;
 
 const AI_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
 const MODEL = "google/gemini-3-flash-preview";
