@@ -58,7 +58,8 @@ export const scoreCampaign = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { campaignId: string }) => d)
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
+    const supabase = untyped(context.supabase);
+    const { userId } = context;
     const { data: campaign, error: cErr } = await supabase
       .from("campaigns").select("*").eq("id", data.campaignId).single();
     if (cErr || !campaign) throw new Error("Campaign not found");
@@ -151,7 +152,7 @@ export const upgradeCampaign = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { campaignId: string }) => d)
   .handler(async ({ data, context }) => {
-    const { error } = await context.supabase
+    const { error } = await untyped(context.supabase)
       .from("campaigns").update({ plan: "Pro", upgraded: true, status: "ACTIVE" })
       .eq("id", data.campaignId);
     if (error) throw new Error(error.message);
@@ -163,7 +164,8 @@ export const launchOutreach = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { campaignId: string }) => d)
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
+    const supabase = untyped(context.supabase);
+    const { userId } = context;
     const { data: campaign } = await supabase.from("campaigns").select("*").eq("id", data.campaignId).single();
     if (!campaign) throw new Error("Campaign not found");
     if (!campaign.upgraded) throw new Error("Upgrade required before outreach.");
@@ -204,7 +206,8 @@ export const recordReply = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { campaignSupplierId: string; replyText: string }) => d)
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
+    const supabase = untyped(context.supabase);
+    const { userId } = context;
     const { data: cs } = await supabase.from("campaign_suppliers").select("*").eq("id", data.campaignSupplierId).single();
     if (!cs) throw new Error("Supplier not found in campaign");
     const { data: campaign } = await supabase.from("campaigns").select("*").eq("id", cs.campaign_id).single();
@@ -286,7 +289,8 @@ export const setCommissionResponse = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: { campaignSupplierId: string; agreed: boolean }) => d)
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
+    const supabase = untyped(context.supabase);
+    const { userId } = context;
     const { data: cs } = await supabase.from("campaign_suppliers").select("*").eq("id", data.campaignSupplierId).single();
     if (!cs) throw new Error("Not found");
     const { data: campaign } = await supabase.from("campaigns").select("brand").eq("id", cs.campaign_id).single();
