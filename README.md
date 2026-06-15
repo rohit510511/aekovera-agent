@@ -314,7 +314,7 @@ The application includes seeded dummy data demonstrating a complete sourcing wor
 5. Observe database training
 6. Escalate qualified suppliers
 7. Track progress to finalization
-
+demo link:[https://aekovera-agent.lovable.app/]
 ---
 
 ## Disclaimer
