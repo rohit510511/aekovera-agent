@@ -14,7 +14,464 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      campaign_suppliers: {
+        Row: {
+          campaign_id: string
+          commission_status: string | null
+          company_name: string
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          escalated: boolean
+          id: string
+          is_partner: boolean | null
+          match_reasons: string | null
+          match_score: number | null
+          response: string | null
+          source: string
+          stage: string
+          supplier_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          campaign_id: string
+          commission_status?: string | null
+          company_name: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          escalated?: boolean
+          id?: string
+          is_partner?: boolean | null
+          match_reasons?: string | null
+          match_score?: number | null
+          response?: string | null
+          source?: string
+          stage?: string
+          supplier_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          campaign_id?: string
+          commission_status?: string | null
+          company_name?: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          escalated?: boolean
+          id?: string
+          is_partner?: boolean | null
+          match_reasons?: string | null
+          match_score?: number | null
+          response?: string | null
+          source?: string
+          stage?: string
+          supplier_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaign_suppliers_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "campaign_suppliers_supplier_id_fkey"
+            columns: ["supplier_id"]
+            isOneToOne: false
+            referencedRelation: "suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          brand: string
+          budget_notes: string | null
+          category: string | null
+          certifications_needed: string | null
+          competitor_reference: string | null
+          contact: string | null
+          created_at: string
+          id: string
+          order_id: string | null
+          packaging: string | null
+          plan: string
+          product: string | null
+          status: string
+          target_launch: string | null
+          technical_requirements: string | null
+          updated_at: string
+          upgraded: boolean
+          user_id: string
+          volume: string | null
+        }
+        Insert: {
+          brand: string
+          budget_notes?: string | null
+          category?: string | null
+          certifications_needed?: string | null
+          competitor_reference?: string | null
+          contact?: string | null
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          packaging?: string | null
+          plan?: string
+          product?: string | null
+          status?: string
+          target_launch?: string | null
+          technical_requirements?: string | null
+          updated_at?: string
+          upgraded?: boolean
+          user_id: string
+          volume?: string | null
+        }
+        Update: {
+          brand?: string
+          budget_notes?: string | null
+          category?: string | null
+          certifications_needed?: string | null
+          competitor_reference?: string | null
+          contact?: string | null
+          created_at?: string
+          id?: string
+          order_id?: string | null
+          packaging?: string | null
+          plan?: string
+          product?: string | null
+          status?: string
+          target_launch?: string | null
+          technical_requirements?: string | null
+          updated_at?: string
+          upgraded?: boolean
+          user_id?: string
+          volume?: string | null
+        }
+        Relationships: []
+      }
+      escalations: {
+        Row: {
+          campaign_id: string | null
+          campaign_supplier_id: string | null
+          context: string | null
+          created_at: string
+          id: string
+          reason: string
+          resolution: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          campaign_id?: string | null
+          campaign_supplier_id?: string | null
+          context?: string | null
+          created_at?: string
+          id?: string
+          reason: string
+          resolution?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          campaign_id?: string | null
+          campaign_supplier_id?: string | null
+          context?: string | null
+          created_at?: string
+          id?: string
+          reason?: string
+          resolution?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "escalations_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "campaigns"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "escalations_campaign_supplier_id_fkey"
+            columns: ["campaign_supplier_id"]
+            isOneToOne: false
+            referencedRelation: "campaign_suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      form_submissions: {
+        Row: {
+          certifications: string | null
+          company_name: string
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          equipment: string | null
+          fill_type: string | null
+          id: string
+          monthly_capacity: string | null
+          moq: string | null
+          notes: string | null
+          open_to_commission: string | null
+          products_made: string | null
+          region: string | null
+          submission_date: string | null
+          supplier_type: string | null
+        }
+        Insert: {
+          certifications?: string | null
+          company_name: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          equipment?: string | null
+          fill_type?: string | null
+          id?: string
+          monthly_capacity?: string | null
+          moq?: string | null
+          notes?: string | null
+          open_to_commission?: string | null
+          products_made?: string | null
+          region?: string | null
+          submission_date?: string | null
+          supplier_type?: string | null
+        }
+        Update: {
+          certifications?: string | null
+          company_name?: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          equipment?: string | null
+          fill_type?: string | null
+          id?: string
+          monthly_capacity?: string | null
+          moq?: string | null
+          notes?: string | null
+          open_to_commission?: string | null
+          products_made?: string | null
+          region?: string | null
+          submission_date?: string | null
+          supplier_type?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string
+          campaign_supplier_id: string
+          classification: string | null
+          created_at: string
+          direction: string
+          id: string
+          subject: string | null
+          user_id: string
+        }
+        Insert: {
+          body: string
+          campaign_supplier_id: string
+          classification?: string | null
+          created_at?: string
+          direction?: string
+          id?: string
+          subject?: string | null
+          user_id: string
+        }
+        Update: {
+          body?: string
+          campaign_supplier_id?: string
+          classification?: string | null
+          created_at?: string
+          direction?: string
+          id?: string
+          subject?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_campaign_supplier_id_fkey"
+            columns: ["campaign_supplier_id"]
+            isOneToOne: false
+            referencedRelation: "campaign_suppliers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      partners: {
+        Row: {
+          agreement_date: string | null
+          capabilities: string | null
+          certifications: string | null
+          company_name: string
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          fill_type: string | null
+          id: string
+          key_equipment: string | null
+          monthly_capacity: string | null
+          moq: string | null
+          nda_signed: string | null
+          product_categories: string | null
+          ref_id: string | null
+          referral_commission: string | null
+          region: string | null
+          relationship_notes: string | null
+          supplier_type: string | null
+          updated_at: string
+        }
+        Insert: {
+          agreement_date?: string | null
+          capabilities?: string | null
+          certifications?: string | null
+          company_name: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          fill_type?: string | null
+          id?: string
+          key_equipment?: string | null
+          monthly_capacity?: string | null
+          moq?: string | null
+          nda_signed?: string | null
+          product_categories?: string | null
+          ref_id?: string | null
+          referral_commission?: string | null
+          region?: string | null
+          relationship_notes?: string | null
+          supplier_type?: string | null
+          updated_at?: string
+        }
+        Update: {
+          agreement_date?: string | null
+          capabilities?: string | null
+          certifications?: string | null
+          company_name?: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          fill_type?: string | null
+          id?: string
+          key_equipment?: string | null
+          monthly_capacity?: string | null
+          moq?: string | null
+          nda_signed?: string | null
+          product_categories?: string | null
+          ref_id?: string | null
+          referral_commission?: string | null
+          region?: string | null
+          relationship_notes?: string | null
+          supplier_type?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      suppliers: {
+        Row: {
+          can_do: string | null
+          cannot_do: string | null
+          capabilities_claimed: string | null
+          certifications: string | null
+          company_name: string
+          contact_name: string | null
+          created_at: string
+          email: string | null
+          fill_type: string | null
+          form_filled: boolean | null
+          id: string
+          in_database: boolean | null
+          key_equipment: string | null
+          last_contacted: string | null
+          last_response: string | null
+          moq: string | null
+          product_categories: string | null
+          ref_id: string | null
+          region: string | null
+          supplier_type: string | null
+          updated_at: string
+        }
+        Insert: {
+          can_do?: string | null
+          cannot_do?: string | null
+          capabilities_claimed?: string | null
+          certifications?: string | null
+          company_name: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          fill_type?: string | null
+          form_filled?: boolean | null
+          id?: string
+          in_database?: boolean | null
+          key_equipment?: string | null
+          last_contacted?: string | null
+          last_response?: string | null
+          moq?: string | null
+          product_categories?: string | null
+          ref_id?: string | null
+          region?: string | null
+          supplier_type?: string | null
+          updated_at?: string
+        }
+        Update: {
+          can_do?: string | null
+          cannot_do?: string | null
+          capabilities_claimed?: string | null
+          certifications?: string | null
+          company_name?: string
+          contact_name?: string | null
+          created_at?: string
+          email?: string | null
+          fill_type?: string | null
+          form_filled?: boolean | null
+          id?: string
+          in_database?: boolean | null
+          key_equipment?: string | null
+          last_contacted?: string | null
+          last_response?: string | null
+          moq?: string | null
+          product_categories?: string | null
+          ref_id?: string | null
+          region?: string | null
+          supplier_type?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
